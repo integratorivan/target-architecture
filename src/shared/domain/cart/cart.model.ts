@@ -8,3 +8,17 @@ export const addProductToCart = (
 ): CartProductModel[] => {
     return [...productList, { ...newProduct, date_added: now() }];
 };
+
+export const removeProductById = (
+    productList: CartProductModel[],
+    productId: CartProductModel['id'],
+): CartProductModel[] => {
+    return productList.filter(({ id }) => id !== productId);
+};
+
+export const hasProduct = (
+    productList: CartProductModel[],
+    productId: CartProductModel['id'],
+): boolean => {
+    return productList.some(({ id }) => id === productId);
+};
