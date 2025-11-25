@@ -11,7 +11,7 @@ export const UserBlockView = reatomComponent(() => {
             style={{
                 padding: '10px',
                 marginTop: '10px',
-                border: '1px solid gray',
+                border: '1px solid #0de049ff',
                 borderRadius: '12px',
                 position: 'relative',
             }}

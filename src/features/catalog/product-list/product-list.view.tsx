@@ -17,6 +17,7 @@ export const ProductListView = reatomComponent(({ ctx }) => {
         <div
             style={{
                 background: '#f7f7f7ff',
+                border: '1px solid #449cd3ff',
                 borderRadius: '12px',
                 marginTop: '10px',
                 display: 'flex',
@@ -26,8 +27,8 @@ export const ProductListView = reatomComponent(({ ctx }) => {
                 position: 'relative',
             }}
         >
-            <FileLabel position="left">
-                features/catalog/card-product/card-product.view.tsx
+            <FileLabel color="#449cd3ff" position="left">
+                src/features/catalog/product-list/product-list.view.tsx
             </FileLabel>
             {productList.map((product) => (
                 <CardProductView key={product.id} {...product} />

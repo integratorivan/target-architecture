@@ -11,10 +11,11 @@ export const CardProductView: FC<CardProductViewProps> = reatomComponent(
         return (
             <div
                 style={{
-                    border: '2px solid #ecf6eeff',
+                    border: '1px solid #ff0000ff',
                     display: 'flex',
                     justifyContent: 'space-between',
                     padding: '10px',
+                    borderRadius: '8px',
                     position: 'relative',
                 }}
                 key={id}
