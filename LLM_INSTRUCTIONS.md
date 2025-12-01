@@ -19,7 +19,6 @@ src/
 ├── shared/        # Общие утилиты, типы, API, доменная логика
 ├── entities/      # Бизнес-сущности
 ├── features/      # Пользовательские функции
-├── widgets/       # Компонуемые UI компоненты
 └── pages/         # Компоненты страниц
 ```
 
@@ -46,10 +45,6 @@ src/
 - Простые фичи: `cart/`, `user-card/`
 - Сегментированные фичи: `catalog/product-list/`, `catalog/card-product/`, `header/cart/`
 - Shared-фичи: `shared/user-block/`
-
-**widgets** - компонуемые UI компоненты:
-- Переиспользуемые компоненты
-- Готово к реализации
 
 **pages** - страницы маршрутизации:
 - Используют TanStack Router
@@ -347,17 +342,7 @@ export const UserCardListView = reatomComponent(({ ctx }) => {
     }
 
     return (
-        <div style={{
-            background: '#f7f7f7ff',
-            border: '1px solid #449cd3ff',
-            borderRadius: '12px',
-            marginTop: '10px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            padding: '10px',
-            position: 'relative',
-        }}>
+        <div>
             <FileLabel color="#449cd3ff" position="left">
                 src/features/user-card/user-card.view.tsx
             </FileLabel>
@@ -382,12 +367,7 @@ export const CartView = reatomComponent(({ ctx }) => {
 
     if (addedProducts.length === 0) {
         return (
-            <div style={{
-                padding: '8px',
-                position: 'relative',
-                border: '2px solid #735BE8',
-                borderRadius: 8,
-            }}>
+            <div>
                 <FileLabel color="#735BE8">features/header/cart/cart.view.tsx</FileLabel>
                 <div data-id="empty-cart">Your cart is empty.</div>
             </div>
@@ -395,13 +375,7 @@ export const CartView = reatomComponent(({ ctx }) => {
     }
 
     return addedProducts.map((product, index) => (
-        <div key={index} style={{
-            border: '1px solid #735BE8',
-            padding: '8px',
-            borderRadius: '8px',
-            position: 'relative',
-            margin: 2,
-        }}>
+        <div key={index}>
             <FileLabel color="#735BE8">features/header/cart/cart.view.tsx</FileLabel>
             <div data-id="product-name">Product: {product.title}</div>
             <div data-id="product-price">Price: ${product.price}</div>
