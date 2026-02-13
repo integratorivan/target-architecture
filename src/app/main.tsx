@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
-import { connectLogger } from '@reatom/framework';
-import { reatomContext } from '@reatom/npm-react';
+import { connectLogger } from '@reatom/core';
+import { reatomContext } from '@reatom/react';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 
 import { reatomCtx } from '$shared/reatom-context';
@@ -18,7 +18,9 @@ declare module '@tanstack/react-router' {
     }
 }
 
-connectLogger(reatomCtx);
+if (import.meta.env.DEV) {
+    reatomCtx.run(connectLogger);
+}
 
 const StartApp = () => {
     const casino = import.meta.env.VITE_CASINO_NAME;

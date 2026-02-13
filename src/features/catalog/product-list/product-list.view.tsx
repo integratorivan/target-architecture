@@ -1,13 +1,13 @@
-import { reatomComponent } from '@reatom/npm-react';
+import { reatomComponent } from '@reatom/react';
 
 import { FileLabel } from '$shared/ui-kit/file-label';
 
 import { CardProductView } from '../card-product/card-product.view';
 import { productListResource } from './product-list.model';
 
-export const ProductListView = reatomComponent(({ ctx }) => {
-    const productList = ctx.spy(productListResource.dataAtom);
-    const productListStatus = ctx.spy(productListResource.statusesAtom);
+export const ProductListView = reatomComponent(() => {
+    const productList = productListResource.data();
+    const productListStatus = productListResource.status();
 
     if (productListStatus.isPending) {
         return <div style={{ padding: '10px', color: 'red' }}>Loading products...</div>;

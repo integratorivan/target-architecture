@@ -1,5 +1,6 @@
 import type { FC } from 'react';
-import { reatomComponent } from '@reatom/npm-react';
+import { wrap } from '@reatom/core';
+import { reatomComponent } from '@reatom/react';
 
 import { FileLabel } from '$shared/ui-kit/file-label';
 
@@ -7,7 +8,7 @@ import { handleAddProductToCartAction } from './card-product.model';
 import type { CardProductViewProps } from './card-product.types';
 
 export const CardProductView: FC<CardProductViewProps> = reatomComponent(
-    ({ ctx, id, price, title }) => {
+    ({ id, price, title }) => {
         return (
             <div
                 style={{
@@ -23,7 +24,7 @@ export const CardProductView: FC<CardProductViewProps> = reatomComponent(
                 <FileLabel>features/catalog/card-product/card-product.view.tsx</FileLabel>
                 <h3>{title}</h3>
                 <p>{price}</p>
-                <button onClick={() => handleAddProductToCartAction(ctx, { id, title, price })}>
+                <button onClick={wrap(() => handleAddProductToCartAction({ id, title, price }))}>
                     Положить в корзину
                 </button>
             </div>

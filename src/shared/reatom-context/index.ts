@@ -1,3 +1,4 @@
-import { createCtx } from '@reatom/framework';
+import { clearStack, context } from '@reatom/core';
 
-export const reatomCtx = createCtx();
+clearStack();
+export const reatomCtx = context.start();

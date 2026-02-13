@@ -31,8 +31,8 @@ const AccountIndexRouteRoute = AccountIndexRouteRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/account': typeof AccountIndexRouteRoute
-  '/catalog': typeof CatalogIndexRouteRoute
+  '/account/': typeof AccountIndexRouteRoute
+  '/catalog/': typeof CatalogIndexRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -47,7 +47,7 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/account' | '/catalog'
+  fullPaths: '/' | '/account/' | '/catalog/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/account' | '/catalog'
   id: '__root__' | '/' | '/account/' | '/catalog/'
@@ -71,14 +71,14 @@ declare module '@tanstack/react-router' {
     '/catalog/': {
       id: '/catalog/'
       path: '/catalog'
-      fullPath: '/catalog'
+      fullPath: '/catalog/'
       preLoaderRoute: typeof CatalogIndexRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/account/': {
       id: '/account/'
       path: '/account'
-      fullPath: '/account'
+      fullPath: '/account/'
       preLoaderRoute: typeof AccountIndexRouteRouteImport
       parentRoute: typeof rootRouteImport
     }

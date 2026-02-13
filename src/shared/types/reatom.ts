@@ -1,7 +1,3 @@
-import type { AsyncDataAtom, AsyncStatusesAtom, ResourceAtom } from '@reatom/framework';
+import type { AsyncDataExt } from '@reatom/core';
 
-export type PropsResourceAtom<TAtom> = ResourceAtom<TAtom> & {
-    dataAtom: AsyncDataAtom<TAtom | null>;
-} & {
-    statusesAtom: AsyncStatusesAtom;
-};
+export type PropsResourceAtom<TAtom> = AsyncDataExt<unknown[], TAtom, TAtom | null>;

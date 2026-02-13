@@ -1,4 +1,4 @@
-import { action, reatomArray } from '@reatom/framework';
+import { action, reatomArray } from '@reatom/core';
 
 import { addProductToCart, removeProductById } from '$shared/domain/cart/cart.model';
 import type { CartProductModel } from '$shared/domain/cart/cart.types';
@@ -6,14 +6,14 @@ import type { ProductModel } from '$shared/domain/product/product.types';
 
 export const addedProductsArray = reatomArray<CartProductModel>([], 'addedProductsArray');
 
-export const addProductToCartAction = action((ctx, product: ProductModel) => {
-    const currentCart = ctx.get(addedProductsArray);
+export const addProductToCartAction = action((product: ProductModel) => {
+    const currentCart = addedProductsArray();
 
-    addedProductsArray(ctx, addProductToCart(product, currentCart));
+    addedProductsArray.set(addProductToCart(product, currentCart));
 }, 'addProductToCartAction');
 
-export const removeProductFromCartAction = action((ctx, productId: CartProductModel['id']) => {
-    const currentCart = ctx.get(addedProductsArray);
+export const removeProductFromCartAction = action((productId: CartProductModel['id']) => {
+    const currentCart = addedProductsArray();
 
-    addedProductsArray(ctx, removeProductById(currentCart, productId));
+    addedProductsArray.set(removeProductById(currentCart, productId));
 }, 'removeProductFromCartAction');

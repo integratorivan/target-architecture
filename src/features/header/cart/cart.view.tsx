@@ -1,10 +1,10 @@
-import { reatomComponent } from '@reatom/npm-react';
+import { reatomComponent } from '@reatom/react';
 
 import { FileLabel } from '$shared/ui-kit/file-label';
 import { addedProductsArray } from '$features/cart/cart.model';
 
-export const CartView = reatomComponent(({ ctx }) => {
-    const addedProducts = ctx.spy(addedProductsArray);
+export const CartView = reatomComponent(() => {
+    const addedProducts = addedProductsArray();
 
     if (addedProducts.length === 0) {
         return (

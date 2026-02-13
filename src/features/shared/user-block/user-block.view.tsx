@@ -1,4 +1,4 @@
-import { reatomComponent } from '@reatom/npm-react';
+import { reatomComponent } from '@reatom/react';
 
 import { FileLabel } from '$shared/ui-kit/file-label';
 
