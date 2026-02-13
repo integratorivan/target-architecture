@@ -27,3 +27,4 @@ dist-ssr
 deploy.sh
 .env
 dev-dist
+*.tsbuildinfo

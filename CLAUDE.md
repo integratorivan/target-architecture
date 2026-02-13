@@ -1,57 +1,64 @@
 # CLAUDE.md
 
-Этот файл содержит руководство для Claude Code (claude.ai/code) при работе с кодом в этом репозитории.
+Этот файл синхронизирован с `README.md`, `PATTERNS.md` и `LLM_INSTRUCTIONS.md`.
 
-## Команды разработки
+## Runtime env контракт
 
-- **Запуск dev-сервера**: `bun run dev` (запускается на порту 3002)
-- **Сборка проекта**: `bun run build`
-- **Проверка кода**: `bun run lint`
-- **Предпросмотр сборки**: `bun run preview`
-- **Проверка неиспользуемого кода**: `bun run knip`
+- Используется только `VITE_CASINO_NAME`.
+- Базовые CSS-переменные: `/variables.css`.
+- Брендовый override: `/${VITE_CASINO_NAME}/variables.css`.
+- `%VITE_PUBLIC_API_URL%` не используется.
 
-## Обзор архитектуры
+## Слои и роли
 
-Это React-приложение для спортивных ставок, построенное на современном стеке:
+- `app` — bootstrap и провайдеры.
+- `routes` — composition root.
+- `features` — изолированные сценарии.
+- `entities` — shared business state.
+- `domain` — pure business logic.
+- `shared` — инфраструктура.
 
-### Основной стек
-- **Фронтенд**: React 19 с TypeScript
-- **Управление состоянием**: Reatom (реактивное управление состоянием)
-- **Роутинг**: TanStack Router с файловой маршрутизацией
-- **Сборщик**: Vite с поддержкой PWA
-- **HTTP-клиент**: Ky для API запросов
+## Dependency Rule
 
-### Структура проекта (Feature-Sliced Design)
+| From | Can import |
+|---|---|
+| `app` | `routes`, `features`, `entities`, `domain`, `shared` |
+| `routes` | `features`, `entities`, `domain`, `shared` |
+| `features` | `entities`, `domain`, `shared` |
+| `entities` | `domain`, `shared` |
+| `domain` | `domain`, внешние утилитарные зависимости |
+| `shared` | `shared` |
 
-Проект следует методологии feature-sliced с путевыми псевдонимами:
+Запрещено:
 
-- `$app` - Настройка приложения и провайдеры
-- `$shared` - Общие утилиты и типы
-- `$entities` - Бизнес-сущности (пусто/готово для реализации)
-- `$features` - Пользовательские функции (сейчас только пустая фича)
-- `$widgets` - Компонуемые UI компоненты (пусто/готово для реализации)
-- `$pages` - Компоненты страниц на основе маршрутов
-- `$model` - Бизнес-логика и модели данных (пусто/готово для реализации)
+- `features -> features`
+- `shared -> domain/entities/features/routes/app`
+- `domain -> shared/entities/features/routes/app`
+- Deep import мимо public API (`index.ts`)
+- Upward-импорты `../` в `shared`, `entities`, `features`, `routes`
 
-### Ключевые архитектурные паттерны
+## Public API
 
-1. **Управление состоянием**: Reatom контекст инициализируется в `$shared/reatom-context` и предоставляется через `src/app/main.tsx`
-2. **API слой**: Централизованный HTTP клиент в `$shared/api/instance.ts` с автоматической инъекцией токена из cookies
-3. **Роутинг**: Файловая маршрутиация с TanStack Router, авто-генерация `routeTree.gen.ts`
-4. **Тематизация**: Динамическая загрузка CSS на основе переменной окружения `VITE_CASINO_NAME`
-5. **Псевдонимы путей**: Все каталоги имеют псевдонимы с префиксом `$` (например, `$shared`, `$features`)
+Корректные импорты:
 
-### Среда разработки
+- `$features/catalog/product-list`
+- `$entities/cart`
+- `$domain/product`
+- `$shared/ui-kit`
 
-- **Прокси**: API запросы к `/api` проксируются на `https://bot.tapgame.tech` во время разработки
-- **Окружение**: Использует `VITE_CASINO_NAME` для динамической загрузки CSS переменных
-- **TypeScript**: Настроен с разрешением модулей bundler и строгим режимом
+Некорректные импорты:
 
-### Организация кода
+- `$features/catalog/product-list/product-list.view`
+- `$domain/product/product.model`
+- `$shared/ui-kit/file-label`
 
-- Общие утилиты в `$shared/lib/utils/` включают помощников для дат, форматирования, интеграции с Telegram
-- Определения типов централизованы в `$shared/types/`
-- Константы бизнес-логики находятся в `$shared/lib/constants/`
-- API эндпоинты организованы в `$shared/api/` с типизированными ответами
+## Reatom
 
-Кодовая база готова к масштабированию с чётким разделением ответственности и современными React паттернами, готова к разработке функций спортивных ставок.
+- Использовать `@reatom/core` и `@reatom/react`.
+- Не использовать `@reatom/framework` и `@reatom/npm-react`.
+
+## Команды
+
+- `bun run dev`
+- `bun run lint`
+- `bun run build`

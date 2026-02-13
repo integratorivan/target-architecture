@@ -1,5 +1,3 @@
-export type PromoContentType = 'promotion' | 'banner';
-
 export type ProductDTO = {
     currency: string;
     price: number;

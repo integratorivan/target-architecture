@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { UserBlockView } from '$features/shared/user-block';
+import { UserBlockView } from '$features/user/user-block';
 
 export const Route = createFileRoute('/account/')({
     component: RouteComponent,

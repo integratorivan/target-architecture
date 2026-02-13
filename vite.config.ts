@@ -1,27 +1,14 @@
-import tanstackRouter from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import { VitePWA } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
     plugins: [
-        tanstackRouter({ target: 'react', autoCodeSplitting: true }),
         react(),
         svgr({
             include: '**/*.svg',
             svgrOptions: { exportType: 'named', ref: true, svgo: false, titleProp: true },
-        }),
-        VitePWA({
-            registerType: 'autoUpdate',
-            workbox: {
-                clientsClaim: true,
-                skipWaiting: true,
-            },
-            devOptions: {
-                enabled: true,
-            },
         }),
     ],
     resolve: {
@@ -30,6 +17,7 @@ export default defineConfig({
             $__tests__: resolve(__dirname, './src/__tests__'),
             $app: resolve(__dirname, './src/app'),
             $assets: resolve(__dirname, './src/assets'),
+            $domain: resolve(__dirname, './src/domain'),
             $entities: resolve(__dirname, './src/entities'),
             $features: resolve(__dirname, './src/features'),
             $model: resolve(__dirname, './src/model'),
@@ -44,10 +32,10 @@ export default defineConfig({
         port: 3002,
         proxy: {
             '/api': {
-                ws: true,
-                target: 'https://bot.tapgame.tech',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, ''),
+                target: 'https://bot.tapgame.tech',
+                ws: true,
             },
         },
     },

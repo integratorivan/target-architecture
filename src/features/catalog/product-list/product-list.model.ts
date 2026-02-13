@@ -1,10 +1,10 @@
 import { computed, withAsyncData } from '@reatom/core';
 
-import { mapProductListDtoToDomain } from '$shared/api/adapters/product-list.adapter';
+import { mapProductListToDomain } from '$domain/product';
 import { getProductList } from '$shared/api/product-list';
 
 export const productListResource = computed(async () => {
     const productList = await getProductList();
 
-    return mapProductListDtoToDomain(productList);
+    return mapProductListToDomain(productList);
 }, 'productListResource').extend(withAsyncData({ initState: [], status: true }));

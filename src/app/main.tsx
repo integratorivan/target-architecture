@@ -8,7 +8,6 @@ import { reatomCtx } from '$shared/reatom-context';
 import { routeTree } from '../routeTree.gen';
 
 import './global.css';
-import './global-variable.css';
 
 const router = createRouter({ routeTree });
 
@@ -24,9 +23,12 @@ if (import.meta.env.DEV) {
 
 const StartApp = () => {
     const casino = import.meta.env.VITE_CASINO_NAME;
+    const brandVariablesHref = casino ? `/${casino}/variables.css` : null;
+
     return (
         <>
-            <link rel="stylesheet" href={`/${casino}/variables.css`} />
+            <link rel="stylesheet" href="/variables.css" />
+            {brandVariablesHref && <link rel="stylesheet" href={brandVariablesHref} />}
             <reatomContext.Provider value={reatomCtx}>
                 <RouterProvider router={router} />
             </reatomContext.Provider>

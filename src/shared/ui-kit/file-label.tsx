@@ -14,12 +14,12 @@ export const FileLabel: FC<FileLabelProps> = ({
     <p
         style={{
             color: color,
+            fontFamily: 'monospace',
+            fontSize: 10,
+            left: position === 'left' ? 0 : undefined,
             position: 'absolute',
             right: position === 'right' ? 0 : undefined,
-            left: position === 'left' ? 0 : undefined,
             top: 0,
-            fontSize: 10,
-            fontFamily: 'monospace',
             zIndex: 10,
         }}
     >

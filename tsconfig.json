@@ -20,8 +20,12 @@
         "noEmit": true,
         "jsx": "react-jsx",
         "incremental": true,
+        "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo",
         "baseUrl": "./",
         "paths": {
+            "$domain/*": [
+                "src/domain/*"
+            ],
             "$*": [
                 "src/*"
             ]
